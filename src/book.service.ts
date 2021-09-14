@@ -27,8 +27,8 @@ export class BookService {
     return this.bookStore.length
   }
 
-  getBooksPublishedBefore(aDate: string | Date): Book[] {
-    const compareDate = new Date(aDate)
-    return this.bookStore.filter(e => e.date <= compareDate)
-  }
+  // getBooksPublishedBefore(aDate: string | Date): Book[] {
+  //   const compareDate = new Date(aDate)
+  //   return this.bookStore.filter(e => e.date <= compareDate)
+  // }
 }
