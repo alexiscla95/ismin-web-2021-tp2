@@ -31,6 +31,10 @@ export class BookService {
     this.bookStore = this.bookStore.filter(e => e.title !== title)
   }
 
+  search(term: string): Book[] {
+    return this.bookStore.filter(e => (e.title.includes(term) || e.author.includes(term)))
+  }
+
   // getBooksPublishedBefore(aDate: string | Date): Book[] {
   //   const compareDate = new Date(aDate)
   //   return this.bookStore.filter(e => e.date <= compareDate)

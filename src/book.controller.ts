@@ -35,5 +35,9 @@ export class BookController {
     this.bookService.deleteBook(title)
   }
 
+  @Post('search')
+  search(@Body('term') term: string): Book[] {
+    return this.bookService.search(term)
+  }
 
 }
