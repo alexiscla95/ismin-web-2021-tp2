@@ -1,22 +1,25 @@
 import { Controller, Get, Post, Body, Param, Query, Delete } from '@nestjs/common';
-import { get } from 'http';
 import { BookService } from './book.service'
-import { Book } from './Book'
+import { PaginationService } from './pagination.service'
+import { Book, listQueryBook } from './interface'
 
 
 @Controller('/books')
 export class BookController {
-  constructor(private readonly bookService: BookService) {}
+  constructor(
+    private readonly bookService: BookService, 
+    private readonly paginationService: PaginationService
+  ) {}
 
   @Get()
-  getBooksOf(@Query('author') author: string): Book[] {
-    return this.bookService.getBooksOf(author)
+  getBooks(@Query() query: listQueryBook): Book[] {
+    if(query.author) {
+      return this.paginationService.getBookPagination(this.bookService.getBooksOf(query.author), parseInt(query.nbrResultPerPage), parseInt(query.page))
+    } else {
+      return this.paginationService.getBookPagination(this.bookService.getAllBooks(), parseInt(query.nbrResultPerPage), parseInt(query.page))
+    }
   }
-  
-  @Get()
-  getAllBooks(): Book[] {
-    return this.bookService.getAllBooks()
-  }
+
 
 
   @Post()
